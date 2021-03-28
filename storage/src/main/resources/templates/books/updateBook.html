@@ -14,30 +14,71 @@
     <hr>
     <h2>Update Book</h2>
 
-    <form action="#" th:action="@{/books/saveBook}" th:object="${book}"
+    <form action="#" th:action="@{/books/updateBook}" th:object="${book}"
           method="POST">
 
         <input type="hidden" th:field="*{id}" />
 
-        <label>Name</label>
-        <input type="text" th:field="*{name}"
-               class="form-control mb-4 col-4" >
+        <label>Name<b>*</b></label>
+        <div class="control-group input" th:class="${#fields.hasErrors('name')}? 'control-group input error'">
+            <input type="text" th:field="*{name}" class="form-control mb-4 col-4"/>
+            <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+        </div>
 
-        <label for="author">Author</label>
-        <input id="author"  type="text" th:field="*{author}"
-               class="form-control mb-4 col-4" >
+        <div class="control-group input" th:class="${#fields.hasErrors('author')}? 'control-group input error'">
+            <label for="author">Author<b>*</b></label>
+            <input id="author"  type="text" th:field="*{author}"
+                   class="form-control mb-4 col-4" >
+            <div th:if="${#fields.hasErrors('author')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+            </div>
+        </div>
 
-        <label for="barcode">Barcode</label>
-        <input id="barcode" type="text" th:field="*{barcode}"
-               class="form-control mb-4 col-4">
+        <div class="control-group input" th:class="${#fields.hasErrors('barcode')}? 'control-group input error'">
+            <label for="barcode">Barcode<b>*</b></label>
+            <input id="barcode" type="text" th:field="*{barcode}"
+                   class="form-control mb-4 col-4">
+            <div th:if="${#fields.hasErrors('barcode')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></span>
+            </div>
+        </div>
 
-        <label>Quantity</label>
-        <input type="text" th:field="*{quantity}"
-               class="form-control mb-4 col-4" >
+        <div class="control-group input" th:class="${#fields.hasErrors('quantity')}? 'control-group input error'">
+            <label>Quantity<b>*</b></label>
+            <input type="number" th:field="*{quantity}"
+                   class="form-control mb-4 col-4" >
+            <div th:if="${#fields.hasErrors('quantity')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
+            </div>
+        </div>
 
-        <label>Price</label>
-        <input type="number" th:field="*{price}"
-               min="1" class="form-control mb-4 col-4">
+        <div class="control-group input" th:class="${#fields.hasErrors('price')}? 'control-group input error'">
+            <label>Price<b>*</b></label>
+            <input type="number" th:field="*{price}"
+                   class="form-control mb-4 col-4">
+            <div th:if="${#fields.hasErrors('price')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+        </div>
+
+        <div class="control-group input" th:class="${#fields.hasErrors('releaseYear')}? 'control-group input error'">
+            <label  th:if="${book.releaseYear!=0}">Release year (for antique book)</label>
+            <input  th:if="${book.releaseYear!=0}" type="number" th:field="*{releaseYear}"
+                   class="form-control mb-4 col-4">
+            <div th:if="${#fields.hasErrors('releaseYear')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('releaseYear')}" th:errors="*{releaseYear}"></span>
+            </div>
+        </div>
+        <div class="control-group input" th:class="${#fields.hasErrors('scienceIndex')}? 'control-group input error'">
+            <label th:if="${book.scienceIndex!=0}">Science index (for science journal)</label>
+            <input  th:if="${book.scienceIndex!=0}" type="number" th:field="*{scienceIndex}"
+                   class="form-control mb-4 col-4">
+            <div th:if="${#fields.hasErrors('scienceIndex')}" class="alert alert-danger mb-2 col-4">
+                <span class="help-block" th:if="${#fields.hasErrors('scienceIndex')}" th:errors="*{scienceIndex}"></span>
+            </div>
+        </div>
 
 
         <button type="submit" class="btn btn-info col-2"> Update Book</button>

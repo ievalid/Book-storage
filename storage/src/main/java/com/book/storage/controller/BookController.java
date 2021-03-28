@@ -58,17 +58,35 @@ public class BookController {
         return "books/updateBook";
     }
 
-    @PostMapping(name="/saveBook",path="/saveBook", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/saveBook",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveBook(@RequestBody @Valid @ModelAttribute("book") Book book, BindingResult errors,
                                Model model, RedirectAttributes redirectAttrs){
 
         if(errors.hasErrors()){
             model.addAttribute("book", book);
-
-            return "/new";
+            return "books/newBook";
+        }else if (book.getScienceIndex()!=0 && book.getReleaseYear()!=0){
+            model.addAttribute("error", "Please choose whether you wish to add antique book or science journal or normal book.");
+            model.addAttribute("book", book);
+            return "books/newBook";
         }
 
         bookService.saveBook(book);
+        redirectAttrs.addFlashAttribute("ok_message", "New book added.");
+        return "redirect:/books";
+    }
+
+    @PostMapping(value = "/updateBook",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String updateBook(@RequestBody @Valid @ModelAttribute("book") Book book, BindingResult errors,
+                           Model model, RedirectAttributes redirectAttrs){
+
+        if(errors.hasErrors()){
+            model.addAttribute("book", book);
+            return "books/updateBook";
+        }
+
+        bookService.saveBook(book);
+        redirectAttrs.addFlashAttribute("ok_message", "Book updated.");
         return "redirect:/books";
     }
 }
