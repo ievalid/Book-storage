@@ -25,8 +25,11 @@ public class BookController {
         if ((search_term == null) || (search_term.equals(""))) {
             model.addAttribute("listBooks", bookService.findAllByOrderByQuantityAscPriceAsc());
             return "books/index";
+        }else{
+            Iterable<Book> bookByBarcode = bookService.findAllByBarcodeContainingIgnoreCase(search_term);
+            model.addAttribute("bookInfo", bookByBarcode);
+            return "books/search-results";
         }
-        return "books/index";
     }
 
     @GetMapping("/new")
