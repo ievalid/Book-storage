@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Book Management System</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+</head>
+<body>
+
+
+<div class="container my-2">
+<!--    <h1>Book List</h1>-->
+
+
+
+    <table class = "table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Barcode</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b : ${listBooks}">
+            <td th:text="${b.name}"></td>
+            <td th:text="${b.author}"></td>
+            <td th:text="${b.barcode}"></td>
+<!--            <td>-->
+<!--                <a th:text="${b.owner}" th:href="@{/buildings/owner/{name}(name = ${b.owner})}"></a>-->
+<!--            </td>-->
+            <td th:text="${b.quantity}"></td>
+            <td th:text="${b.price}"></td>
+            <td>
+                <div>
+                    <a th:href="@{books/update/{id}(id=${b.id})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{books/delete/{id}(id=${b.id})}" class="btn btn-danger">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href = "@{books/new}" class="btn btn-success"> Add Book </a>
+</div>
+</body>
+</html>
